@@ -380,7 +380,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: yiwen zhou (S2T4S76962)";
 				DEVELOPMENT_TEAM = S2T4S76962;
 				INFOPLIST_FILE = "flappy bird/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StupidPigsFlyFirst.yv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -400,7 +400,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yiwen zhou (S2T4S76962)";
 				DEVELOPMENT_TEAM = S2T4S76962;
 				INFOPLIST_FILE = "flappy bird/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StupidPigsFlyFirst.yv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
