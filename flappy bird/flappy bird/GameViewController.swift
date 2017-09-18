@@ -16,7 +16,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            let scene = homeSKScene(size: CGSize(width: view.bounds.size.width, height: view.bounds.size.height))
+            let scene = menuSKScene(size: CGSize(width: view.bounds.size.width, height: view.bounds.size.height))
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
             //使用zpostion有效

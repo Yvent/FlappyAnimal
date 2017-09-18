@@ -36,23 +36,35 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     var sharedToWXBtn = SKSpriteNode()
     var sharedToPYQBtn = SKSpriteNode()
     
+    var menuBtn = SKSpriteNode()
+    
+    
     override func didMove(to view: SKView) {
+        
+     
         createScene()
     }
     
     func createScene() {
         self.physicsWorld.contactDelegate = self
+        
+        self.physicsWorld.gravity = CGVector(dx: 0, dy:-5)
         for i in 0 ..< 2 {
             let background = SKSpriteNode(imageNamed: "背景")
             background.name = "background"
             background.position = CGPoint(x: self.frame.width/2 + CGFloat(i)*(self.frame.width), y: self.frame.height/2)
             background.size = (self.view?.bounds.size)!
+            background.zPosition = 0
             self.addChild(background)
         }
         
+        
+      
+        
+        
         ScoreLab = SKLabelNode(text: "\(Score)")
         ScoreLab.position = CGPoint(x: self.frame.width/2, y: self.frame.height-100)
-        ScoreLab.zPosition = 5
+        ScoreLab.zPosition = 6
         ScoreLab.fontName = "04b19"
         ScoreLab.fontSize = 60
         self.addChild(ScoreLab)
@@ -144,10 +156,10 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
             moveAndRemove = SKAction.sequence([movePipes,reMovePipes])
             //刚体的速度
             Pig.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            Pig.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
+            Pig.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 30))
         }else{
             Pig.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            Pig.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 50))
+            Pig.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 30))
         }
         
         for touche in touches {
@@ -162,6 +174,20 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
                 if sharedToPYQBtn.contains(location) == true{
                     YVSharedManager.shared.shareToPy()
                 }
+                if menuBtn.contains(location) == true{
+                    
+                    self.removeAllChildren()
+                    self.removeAllActions()
+                    
+                    //跳转到菜单栏
+                    //声明下一个场景的实例
+                    let secondScene = menuSKScene(size: self.size)
+                    //场景过渡动画
+                    let doors = SKTransition.doorsOpenVertical(withDuration: 0.5)
+                    //带动画的场景跳转
+                    self.view?.presentScene(secondScene,transition:doors)
+                    
+                }
             }
         }
     }
@@ -171,12 +197,23 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         restoreBtn.color = SKColor.red
         restoreBtn.size = CGSize(width: AdaptationWidth(250/2), height: AdaptationHeight(90/2))
         restoreBtn.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        restoreBtn.zPosition = 6
+        restoreBtn.zPosition = 7
         self.addChild(restoreBtn)
         //按钮出现时的动画
         restoreBtn.setScale(0)
         restoreBtn.run(SKAction.scale(to: 1.5, duration: 0.3))
         wallIndex = 1
+    }
+    
+    func createMenuBtn()  {
+        menuBtn = SKSpriteNode(color: SKColor.red, size: CGSize(width: 50, height: 50))
+        menuBtn.position = CGPoint(x: 50, y: self.frame.height-50)
+        menuBtn.zPosition = 7
+        self.addChild(menuBtn)
+        
+        //按钮出现时的动画
+        menuBtn.setScale(0)
+        menuBtn.run(SKAction.scale(to: 1.2, duration: 0.3))
     }
     
     func createSharedBtn() {
@@ -198,6 +235,9 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         //按钮出现时的动画
         sharedToPYQBtn.setScale(0)
         sharedToPYQBtn.run(SKAction.scale(to: 1.2, duration: 0.3))
+        
+        
+        createMenuBtn()
     }
     func createWalls() {
         //为每个墙创建一条线，计数使用
@@ -209,7 +249,7 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         ScroeNode.fontSize = 60
         //一定要实例化
         ScroeNode.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 + AdaptationWidth(25) )
-        ScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59)))
+        ScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59*2)))
         ScroeNode.physicsBody?.categoryBitMask = PhysicsCategory.Score
         ScroeNode.physicsBody?.collisionBitMask = 0
         ScroeNode.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
@@ -260,7 +300,7 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         topScroeNode.fontSize = 60
         //一定要实例化
         topScroeNode.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 + AdaptationWidth(100) )
-        topScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59)))
+        topScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59*2)))
         topScroeNode.physicsBody?.categoryBitMask = PhysicsCategory.Score
         topScroeNode.physicsBody?.collisionBitMask = 0
         topScroeNode.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
