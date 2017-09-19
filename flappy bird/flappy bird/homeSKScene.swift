@@ -35,13 +35,10 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     var restoreBtn = SKSpriteNode()
     var sharedToWXBtn = SKSpriteNode()
     var sharedToPYQBtn = SKSpriteNode()
-    
     var menuBtn = SKSpriteNode()
     
     
     override func didMove(to view: SKView) {
-        
-     
         createScene()
     }
     
@@ -57,10 +54,6 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
             background.zPosition = 0
             self.addChild(background)
         }
-        
-        
-      
-        
         
         ScoreLab = SKLabelNode(text: "\(Score)")
         ScoreLab.position = CGPoint(x: self.frame.width/2, y: self.frame.height-100)
@@ -206,14 +199,15 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     }
     
     func createMenuBtn()  {
-        menuBtn = SKSpriteNode(color: SKColor.red, size: CGSize(width: 50, height: 50))
+        menuBtn = SKSpriteNode(imageNamed: "菜单")
+        //        menuBtn.size = CGSize(width: 90/2, height: 90/2)
         menuBtn.position = CGPoint(x: 50, y: self.frame.height-50)
         menuBtn.zPosition = 7
         self.addChild(menuBtn)
         
         //按钮出现时的动画
         menuBtn.setScale(0)
-        menuBtn.run(SKAction.scale(to: 1.2, duration: 0.3))
+        menuBtn.run(SKAction.scale(to: 1, duration: 0.3))
     }
     
     func createSharedBtn() {
@@ -244,7 +238,7 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         let ScroeNode = SKLabelNode()
         ScroeNode.name = "ScroeNode"
         ScroeNode.color = SKColor.blue
-        ScroeNode.text = "\(CGFloat.randomF(to: 100))"
+        ScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
         ScroeNode.fontName = "04b19"
         ScroeNode.fontSize = 60
         //一定要实例化
@@ -320,13 +314,13 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         botScroeNode.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
         botScroeNode.physicsBody?.isDynamic = false
         botScroeNode.physicsBody?.affectedByGravity = false
-
+        
         if randomBool == 0 {
             topScroeNode.text = "\(self.totaladd!)"
-            botScroeNode.text = "\(CGFloat.randomF(to: 100))"
+            botScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
         }else{
             
-            topScroeNode.text = "\(CGFloat.randomF(to: 100))"
+            topScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
             botScroeNode.text = "\(self.totaladd!)"
         }
         

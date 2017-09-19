@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4211345A1F45D8C5004E2D0A /* RandomExten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421134591F45D8C5004E2D0A /* RandomExten.swift */; };
 		423C2CF01F6E0BB7001486FC /* menuSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C2CEF1F6E0BB7001486FC /* menuSKScene.swift */; };
+		424C70B81F70C5A7005B03CA /* levelSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C70B71F70C5A7005B03CA /* levelSKScene.swift */; };
 		429849211F6672E8000B99B5 /* ZGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429849201F6672E8000B99B5 /* ZGlobal.swift */; };
 		42A8A13A1F4D589800220231 /* 04B_19__.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 42A8A1391F4D589800220231 /* 04B_19__.TTF */; };
 		42CD979C1F42AAB900990239 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CD979B1F42AAB900990239 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 		17D505B068936169F3A305A5 /* Pods-flappy bird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flappy bird.release.xcconfig"; path = "Pods/Target Support Files/Pods-flappy bird/Pods-flappy bird.release.xcconfig"; sourceTree = "<group>"; };
 		421134591F45D8C5004E2D0A /* RandomExten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomExten.swift; sourceTree = "<group>"; };
 		423C2CEF1F6E0BB7001486FC /* menuSKScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuSKScene.swift; sourceTree = "<group>"; };
+		424C70B71F70C5A7005B03CA /* levelSKScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = levelSKScene.swift; sourceTree = "<group>"; };
 		429849201F6672E8000B99B5 /* ZGlobal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGlobal.swift; sourceTree = "<group>"; };
 		42A8A1391F4D589800220231 /* 04B_19__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = 04B_19__.TTF; sourceTree = "<group>"; };
 		42CD97981F42AAB900990239 /* flappy bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "flappy bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 				42CD97B31F42ABC300990239 /* homeSKScene.swift */,
 				421134591F45D8C5004E2D0A /* RandomExten.swift */,
 				423C2CEF1F6E0BB7001486FC /* menuSKScene.swift */,
+				424C70B71F70C5A7005B03CA /* levelSKScene.swift */,
 			);
 			path = "flappy bird";
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				424C70B81F70C5A7005B03CA /* levelSKScene.swift in Sources */,
 				429849211F6672E8000B99B5 /* ZGlobal.swift in Sources */,
 				42CD97A21F42AAB900990239 /* GameScene.swift in Sources */,
 				42CD97B41F42ABC300990239 /* homeSKScene.swift in Sources */,

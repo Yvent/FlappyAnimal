@@ -14,6 +14,8 @@ import UIKit
 let ScreenWidth = UIScreen.main.bounds.width
 let ScreenHeight = UIScreen.main.bounds.height
 
+var LevelCount: Int = 10
+
 func AdaptationHeight(_ height: CGFloat) -> CGFloat {
     
     return CGFloat(ScreenHeight/667) * height
