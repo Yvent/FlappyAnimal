@@ -1,4 +1,5 @@
 PODS:
+  - SnapKit (3.0.2)
   - UMengUShare/Core (6.4.5):
     - UMengUShare/Network
   - UMengUShare/Network (6.4.5)
@@ -9,11 +10,13 @@ PODS:
     - UMengUShare/Social/ReducedWeChat
 
 DEPENDENCIES:
+  - SnapKit (~> 3.0.0)
   - UMengUShare/Social/WeChat
 
 SPEC CHECKSUMS:
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   UMengUShare: a5711c54e640b04e3048e931d2b88d50f9cfa55c
 
-PODFILE CHECKSUM: b40ce0549a5a3bd5a0ffea9a2a9b7c192d9ca70a
+PODFILE CHECKSUM: 1834f3abb7c6cdb5556d12faabc9fc0cd0a5d49f
 
 COCOAPODS: 1.1.1

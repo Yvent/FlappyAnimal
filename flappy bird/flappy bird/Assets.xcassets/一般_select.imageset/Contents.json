@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bird.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "一般_select.png",
       "scale" : "2x"
     },
     {

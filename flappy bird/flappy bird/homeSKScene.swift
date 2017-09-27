@@ -15,12 +15,17 @@ struct PhysicsCategory {
     static let Wall: UInt32 = 0x1 << 3
     static let Score: UInt32 = 0x1 << 4
 }
+struct LevelType {
+    static let Binary: String = "Binary"
+    static let Decimal: String = "Decimal"
+}
 class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     
     var wallIndex: Int = 1
     var addOne: Int?
     var addTwo: Int?
-    var totaladd: Int?
+    var totaladdStr: String?
+     var totaladdStrCopy: String?
     var ScoreLab = SKLabelNode()
     //地面
     var Ground = SKSpriteNode()
@@ -129,10 +134,20 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
                     self.createWalls()
                     let node = self.wallPair.childNode(withName: "ScroeNode") as! SKLabelNode
                     if self.wallIndex%3 == 1 {
-                        self.addOne = Int(node.text!)
+                        self.addOne = Int(node.text!.getDecimalByBinary())
                     }else if self.wallIndex%3 == 2 {
-                        self.addTwo = Int(node.text!)
-                        self.totaladd = self.addOne!+self.addTwo!
+                        self.addTwo = Int(node.text!.getDecimalByBinary())
+                        let totaladd = self.addOne!+self.addTwo!
+                        if fLevelType == LevelType.Decimal {
+                           self.totaladdStr = "\(totaladd)"
+                            self.totaladdStrCopy = "\(totaladd)"
+                        }else if fLevelType == LevelType.Binary {
+                            var intStr = "\(totaladd)"
+                            print("intStr====\(intStr)")
+                        self.totaladdStrCopy = intStr
+                        self.totaladdStr = intStr.getBinaryByDecimal()
+                        }
+                     
                     }
                 }
                 self.wallIndex += 1
@@ -238,7 +253,16 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         let ScroeNode = SKLabelNode()
         ScroeNode.name = "ScroeNode"
         ScroeNode.color = SKColor.blue
-        ScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+        if fLevelType == LevelType.Decimal {
+            ScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+        }else if fLevelType == LevelType.Binary {
+            
+            var intStr = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+    
+            ScroeNode.text = intStr.getBinaryByDecimal()
+        
+        }
+        
         ScroeNode.fontName = "04b19"
         ScroeNode.fontSize = 60
         //一定要实例化
@@ -316,12 +340,48 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         botScroeNode.physicsBody?.affectedByGravity = false
         
         if randomBool == 0 {
-            topScroeNode.text = "\(self.totaladd!)"
-            botScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+            
+            if fLevelType == LevelType.Decimal {
+                
+                topScroeNode.text = self.totaladdStrCopy!
+                botScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+                
+            }else if fLevelType == LevelType.Binary {
+                
+                var intStr = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+                var aintStr = self.totaladdStrCopy!
+                
+                  print("\(aintStr)")
+                topScroeNode.text = aintStr.getBinaryByDecimal()
+                botScroeNode.text = intStr.getBinaryByDecimal()
+                
+                
+                
+            }
+            
+           
         }else{
             
-            topScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
-            botScroeNode.text = "\(self.totaladd!)"
+            if fLevelType == LevelType.Decimal {
+                
+                
+                topScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+                botScroeNode.text = self.totaladdStrCopy!
+                
+            }else if fLevelType == LevelType.Binary {
+                
+                var intStr = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
+                var aintStr = self.totaladdStrCopy!
+                
+                   print("\(aintStr)")
+                topScroeNode.text = intStr.getBinaryByDecimal()
+                botScroeNode.text = aintStr.getBinaryByDecimal()
+                
+             
+                
+            }
+            
+            
         }
         
         //节点，方便管理多个精灵，并不是父控件，和位置没有关系
@@ -381,10 +441,13 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
             if bodya.categoryBitMask == PhysicsCategory.Pig && bodyb.categoryBitMask == PhysicsCategory.Score {
                 Score += 1
                 ScoreLab.text = "\(Score)"
+//                var strint = "\(Score)"
+//                
+//                ScoreLab.text = strint.getBinaryByDecimal()
                 let node = bodyb.node as! SKLabelNode
                 if node.name == "botScroeNode" || node.name == "topScroeNode"{
-                    let scoreInt = Int(node.text!)
-                    if scoreInt! != self.totaladd! {
+//                    let scoreInt = Int(node.text!)
+                    if node.text! != totaladdStr! {
                         isDied = true
                         //函数可以取得所有具有name的nodes，这里取得node，并停止。
                         enumerateChildNodes(withName: "wallPair", using: { (node, error) in
@@ -399,10 +462,13 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
             } else if bodyb.categoryBitMask == PhysicsCategory.Pig && bodya.categoryBitMask == PhysicsCategory.Score {
                 Score += 1
                 ScoreLab.text = "\(Score)"
+//                var strint = "\(Score)"
+//                
+//                ScoreLab.text = strint.getBinaryByDecimal()
                 let node = bodya.node as! SKLabelNode
                 if node.name == "botScroeNode" || node.name == "topScroeNode"{
-                    let scoreInt = Int(node.text!)
-                    if scoreInt! != self.totaladd! {
+//                    let scoreInt = Int(node.text!)
+                    if node.text! != self.totaladdStr! {
                         isDied = true
                         //函数可以取得所有具有name的nodes，这里取得node，并停止。
                         enumerateChildNodes(withName: "wallPair", using: { (node, error) in

@@ -15,6 +15,8 @@ let ScreenWidth = UIScreen.main.bounds.width
 let ScreenHeight = UIScreen.main.bounds.height
 
 var LevelCount: Int = 10
+//默认十进制
+var fLevelType = LevelType.Decimal
 
 func AdaptationHeight(_ height: CGFloat) -> CGFloat {
     

@@ -9,11 +9,14 @@
 import UIKit
 import SpriteKit
 
-
 class menuSKScene: SKScene {
     
     var startNode: SKSpriteNode!
     var levelNode: SKSpriteNode!
+    //规则
+    var rulesNode: SKSpriteNode!
+    
+    
     
     override func didMove(to view: SKView) {
         self.backgroundColor = UIColor.white
@@ -30,15 +33,22 @@ class menuSKScene: SKScene {
         
         startNode = SKSpriteNode(imageNamed: "开始")
         startNode.size = CGSize(width: AdaptationWidth(240), height: AdaptationWidth(80))
-        startNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2+80)
+        startNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2+160)
         startNode.zPosition = 1
         self.addChild(startNode)
         
         levelNode = SKSpriteNode(imageNamed: "难度")
         levelNode.size = CGSize(width: AdaptationWidth(240), height: AdaptationWidth(80))
-        levelNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2-80)
+        levelNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         levelNode.zPosition = 1
         self.addChild(levelNode)
+        
+        rulesNode = SKSpriteNode(imageNamed: "规则")
+//        rulesNode = SKSpriteNode(color: UIColor.red, size: CGSize(width: AdaptationWidth(240), height: AdaptationWidth(80)))
+        rulesNode.size = CGSize(width: AdaptationWidth(240), height: AdaptationWidth(80))
+        rulesNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2-160)
+        rulesNode.zPosition = 1
+        self.addChild(rulesNode)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -66,6 +76,18 @@ class menuSKScene: SKScene {
                 self.view?.presentScene(secondScene,transition:doors)
                 return
             }
+            if rulesNode.contains(location) == true{
+                self.removeAllChildren()
+                self.removeAllActions()
+                //声明下一个场景的实例
+                let secondScene = rulesSKScene(size: self.size)
+                //场景过渡动画
+                let doors = SKTransition.doorsOpenVertical(withDuration: 0.5)
+                //带动画的场景跳转
+                self.view?.presentScene(secondScene,transition:doors)
+                return
+            }
+            
         }
     }
 }
