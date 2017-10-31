@@ -18,6 +18,7 @@ var LevelCount: Int = 10
 //默认十进制
 var fLevelType = LevelType.Decimal
 
+
 func AdaptationHeight(_ height: CGFloat) -> CGFloat {
     
     return CGFloat(ScreenHeight/667) * height
@@ -63,4 +64,7 @@ let UserDefaults = Foundation.UserDefaults.standard
 
 
 let AppStoreLink = "https://itunes.apple.com/cn/app/id1216139441?mt=8"
+
+
+//let USER_IMAGE = "USER_IMAGE"
 

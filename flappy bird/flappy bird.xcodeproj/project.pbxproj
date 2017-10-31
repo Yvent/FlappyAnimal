@@ -12,6 +12,7 @@
 		4226E8931F73ADA800F0FBE1 /* rulesSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4226E8921F73ADA800F0FBE1 /* rulesSKScene.swift */; };
 		423C2CF01F6E0BB7001486FC /* menuSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C2CEF1F6E0BB7001486FC /* menuSKScene.swift */; };
 		424C70B81F70C5A7005B03CA /* levelSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424C70B71F70C5A7005B03CA /* levelSKScene.swift */; };
+		426A4D3A1FA07DDC00FCFACE /* SpriteKitEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426A4D391FA07DDC00FCFACE /* SpriteKitEXT.swift */; };
 		429849211F6672E8000B99B5 /* ZGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429849201F6672E8000B99B5 /* ZGlobal.swift */; };
 		42A8A13A1F4D589800220231 /* 04B_19__.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 42A8A1391F4D589800220231 /* 04B_19__.TTF */; };
 		42CD979C1F42AAB900990239 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CD979B1F42AAB900990239 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 		4226E8921F73ADA800F0FBE1 /* rulesSKScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rulesSKScene.swift; sourceTree = "<group>"; };
 		423C2CEF1F6E0BB7001486FC /* menuSKScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = menuSKScene.swift; sourceTree = "<group>"; };
 		424C70B71F70C5A7005B03CA /* levelSKScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = levelSKScene.swift; sourceTree = "<group>"; };
+		426A4D391FA07DDC00FCFACE /* SpriteKitEXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKitEXT.swift; sourceTree = "<group>"; };
 		429849201F6672E8000B99B5 /* ZGlobal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZGlobal.swift; sourceTree = "<group>"; };
 		42A8A1391F4D589800220231 /* 04B_19__.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = 04B_19__.TTF; sourceTree = "<group>"; };
 		42CD97981F42AAB900990239 /* flappy bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "flappy bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +96,7 @@
 		42CD979A1F42AAB900990239 /* flappy bird */ = {
 			isa = PBXGroup;
 			children = (
+				426A4D391FA07DDC00FCFACE /* SpriteKitEXT.swift */,
 				4226E8901F73A39C00F0FBE1 /* UIExtension.swift */,
 				429849201F6672E8000B99B5 /* ZGlobal.swift */,
 				42A8A1391F4D589800220231 /* 04B_19__.TTF */,
@@ -262,6 +265,7 @@
 				42CD97A41F42AAB900990239 /* GameViewController.swift in Sources */,
 				42DD61F01F5EAF72007EA72D /* YVSharedManager.swift in Sources */,
 				423C2CF01F6E0BB7001486FC /* menuSKScene.swift in Sources */,
+				426A4D3A1FA07DDC00FCFACE /* SpriteKitEXT.swift in Sources */,
 				42CD979C1F42AAB900990239 /* AppDelegate.swift in Sources */,
 				4211345A1F45D8C5004E2D0A /* RandomExten.swift in Sources */,
 			);
@@ -335,7 +339,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5b4f48a6-2178-426b-b593-2ed6315b2113";
+				PROVISIONING_PROFILE = "5512b28b-ed19-405f-b6b4-8ad9bb4d9777";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -381,7 +385,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "5b4f48a6-2178-426b-b593-2ed6315b2113";
+				PROVISIONING_PROFILE = "5512b28b-ed19-405f-b6b4-8ad9bb4d9777";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -400,8 +404,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StupidPigsFlyFirst.yv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5b4f48a6-2178-426b-b593-2ed6315b2113";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.StupidPigsFlyFirst.yv";
+				PROVISIONING_PROFILE = "5512b28b-ed19-405f-b6b4-8ad9bb4d9777";
+				PROVISIONING_PROFILE_SPECIFIER = Appstore_StupidPig;
 				SWIFT_OBJC_BRIDGING_HEADER = "flappy bird/flappy bird-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -420,8 +424,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.StupidPigsFlyFirst.yv;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5b4f48a6-2178-426b-b593-2ed6315b2113";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.StupidPigsFlyFirst.yv";
+				PROVISIONING_PROFILE = "5512b28b-ed19-405f-b6b4-8ad9bb4d9777";
+				PROVISIONING_PROFILE_SPECIFIER = Appstore_StupidPig;
 				SWIFT_OBJC_BRIDGING_HEADER = "flappy bird/flappy bird-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

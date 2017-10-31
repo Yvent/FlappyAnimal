@@ -9,6 +9,4 @@ target 'flappy bird' do
 
 #    # 集成微信
     pod 'UMengUShare/Social/WeChat'
-    
- 
 end

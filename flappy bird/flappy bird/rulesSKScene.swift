@@ -37,10 +37,7 @@ class rulesSKScene: SKScene {
         self.addChild(menuBtn)
         
         
-
-//        instructionLab = SKLabelNode(text: )
-        
-        instructionLab = UILabel(yv_lt: "目前版本只有加法模式，第一根柱子上数字加第二根柱子上数字的和是第三根柱子，第三根柱子会有两个数字，只有从正确答案下的数字走，才能顺利通过哦，😁😁\n简单：10以内的加法计算\n一般：100以内的加法计算\n困难：10以内的二进制加法计算", ltc: UIColor.white, ts: nil, bts: 20, alg: .center, isToFit: true)
+        instructionLab = UILabel(yv_lt: "目前版本只有加法模式，第一根柱子上数字加第二根柱子上数字的和是第三根柱子，第三根柱子会有两个数字，只有从正确答案下的数字走，才能顺利通过哦，😁😁\n简单：10以内的加法计算\n困难：10以内的二进制加法计算", ltc: UIColor.white, ts: nil, bts: 20, alg: .center, isToFit: true)
         self.view?.addSubview(instructionLab)
         instructionLab.snp.makeConstraints { (make) in
             make.width.equalTo(ScreenWidth-100)

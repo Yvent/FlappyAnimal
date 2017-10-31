@@ -13,10 +13,10 @@ class levelSKScene: SKScene,UITableViewDelegate,UITableViewDataSource {
     
     
     var fTableView: UITableView!
-    let images = ["简单","一般","困难"]
-     let imagesSelect = ["简单_select","一般_select","困难_select"]
-    let levelSelect = [10,100,5]
-    let fLevelTypes = [LevelType.Decimal,LevelType.Decimal,LevelType.Binary]
+    let images = ["简单","困难"]
+     let imagesSelect = ["简单_select","困难_select"]
+    let levelSelect = [10,5]
+    let fLevelTypes = [LevelType.Decimal,LevelType.Binary]
     
     var menuBtn: SKSpriteNode!
     //简单
@@ -38,7 +38,7 @@ class levelSKScene: SKScene,UITableViewDelegate,UITableViewDataSource {
         self.view?.addSubview(fTableView)
         fTableView.snp.makeConstraints { (make) in
             make.width.equalTo(AdaptationWidth(240))
-            make.height.equalTo(AdaptationWidth(240))
+            make.height.equalTo(AdaptationWidth(160))
             make.center.equalTo(self.view!)
         }
         

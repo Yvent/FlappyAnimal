@@ -9,11 +9,10 @@
 import UIKit
 import SpriteKit
 import GameplayKit
-
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+  
         
         if let view = self.view as! SKView? {
             let scene = menuSKScene(size: CGSize(width: view.bounds.size.width, height: view.bounds.size.height))
@@ -46,4 +45,8 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+
+
+
 }

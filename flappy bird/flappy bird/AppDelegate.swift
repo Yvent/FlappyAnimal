@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         YVSharedManager.shared.addUMSHARED()
         
+        addUserDefaultData()
+        
         //        for familyName in UIFont.familyNames {
         //            for fontName in UIFont.fontNames(forFamilyName: familyName) {
         //                  print("\(fontName)")
@@ -49,6 +51,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    //MARK: 添加用户默认数据
+    func addUserDefaultData() {
+        
+        let infoDictionary = Bundle.main.infoDictionary
+        let currentAppVersion = infoDictionary!["CFBundleShortVersionString"] as! String
+        let appVersion = Foundation.UserDefaults.standard.string(forKey: "appVersion")
+        if appVersion == nil || appVersion != currentAppVersion {
+            
+            Foundation.UserDefaults.standard.setValue(currentAppVersion, forKey: "appVersion")
+            
+     
+//            if UserDefaults.value(forKey: USER_IMAGE) == nil {
+//                
+//                UserDefaults.set("猪", forKey: USER_IMAGE)
+//            }
+            
+            
+        }
+    }
+    
 
 
 }

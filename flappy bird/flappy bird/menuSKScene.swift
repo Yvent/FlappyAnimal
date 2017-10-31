@@ -11,6 +11,8 @@ import SpriteKit
 
 class menuSKScene: SKScene {
     
+
+    
     var startNode: SKSpriteNode!
     var levelNode: SKSpriteNode!
     //规则
@@ -30,6 +32,7 @@ class menuSKScene: SKScene {
         background.size = (self.view?.bounds.size)!
         background.zPosition = 0
         self.addChild(background)
+        
         
         startNode = SKSpriteNode(imageNamed: "开始")
         startNode.size = CGSize(width: AdaptationWidth(240), height: AdaptationWidth(80))

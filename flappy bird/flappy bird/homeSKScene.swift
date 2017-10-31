@@ -19,13 +19,16 @@ struct LevelType {
     static let Binary: String = "Binary"
     static let Decimal: String = "Decimal"
 }
+
+
+
 class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     
     var wallIndex: Int = 1
     var addOne: Int?
     var addTwo: Int?
     var totaladdStr: String?
-     var totaladdStrCopy: String?
+    var totaladdStrCopy: String?
     var ScoreLab = SKLabelNode()
     //地面
     var Ground = SKSpriteNode()
@@ -42,61 +45,34 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     var sharedToPYQBtn = SKSpriteNode()
     var menuBtn = SKSpriteNode()
     
-    
     override func didMove(to view: SKView) {
         createScene()
     }
     
     func createScene() {
         self.physicsWorld.contactDelegate = self
-        
         self.physicsWorld.gravity = CGVector(dx: 0, dy:-5)
         for i in 0 ..< 2 {
             let background = SKSpriteNode(imageNamed: "背景")
-            background.name = "background"
-            background.position = CGPoint(x: self.frame.width/2 + CGFloat(i)*(self.frame.width), y: self.frame.height/2)
-            background.size = (self.view?.bounds.size)!
-            background.zPosition = 0
+            background.configuration(name: "background", size: self.view?.bounds.size, position: CGPoint(x: self.frame.width/2 + CGFloat(i)*(self.frame.width), y: self.frame.height/2), physicsBody: nil, zPosition: 0)
             self.addChild(background)
         }
-        
         ScoreLab = SKLabelNode(text: "\(Score)")
-        ScoreLab.position = CGPoint(x: self.frame.width/2, y: self.frame.height-100)
-        ScoreLab.zPosition = 6
-        ScoreLab.fontName = "04b19"
-        ScoreLab.fontSize = 60
-        self.addChild(ScoreLab)
-        
+        ScoreLab.configuration(name: nil, position: CGPoint(x: self.frame.width/2, y: self.frame.height-100), fontName: "04b19", fontSize: 60, physicsBody: nil, zPosition: 6)
         Ground = SKSpriteNode(imageNamed: "地面")
-        Ground.size.width = ScreenWidth
-        Ground.setScale(1)
-        Ground.position = CGPoint(x: self.frame.width/2, y: 0 + Ground.frame.height/2)
-        Ground.physicsBody = SKPhysicsBody(rectangleOf: Ground.size)
-        //类别掩码: 定义了一个物体所属类别
-        Ground.physicsBody?.categoryBitMask = PhysicsCategory.Ground
-        //碰撞掩码: 该物体能够对另一个物体的碰撞发生反应
-        Ground.physicsBody?.collisionBitMask = PhysicsCategory.Pig
-        //接触测试掩码: 检测是否发生接触
-        Ground.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        //是否动态
-        Ground.physicsBody?.isDynamic = false
-        //是否受重力影响
-        Ground.physicsBody?.affectedByGravity = false
-        Ground.zPosition = 3
-        self.addChild(Ground)
+        let Groundbody = SKPhysicsBody(rectangleOf: Ground.size)
+        Groundbody.configuration(categoryBitMask: PhysicsCategory.Ground, collisionBitMask: PhysicsCategory.Pig, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        Ground.configuration(name: nil, size: CGSize(width: ScreenWidth, height: Ground.size.height), position: CGPoint(x: self.frame.width/2, y: 0 + Ground.frame.height/2), physicsBody: Groundbody, zPosition: 3)
         
-        Pig = SKSpriteNode(imageNamed: "猪")
-        Pig.size = CGSize(width: 60, height: 56)
-        Pig.position = CGPoint(x: self.frame.width/2 - Pig.frame.width, y: self.frame.height/2)
-        Pig.physicsBody = SKPhysicsBody(circleOfRadius: 56/2)
-        Pig.physicsBody?.categoryBitMask = PhysicsCategory.Pig
-        Pig.physicsBody?.collisionBitMask = PhysicsCategory.Ground | PhysicsCategory.Wall
-        Pig.physicsBody?.contactTestBitMask = PhysicsCategory.Ground | PhysicsCategory.Wall | PhysicsCategory.Score
-        Pig.physicsBody?.isDynamic = true
-        Pig.physicsBody?.affectedByGravity = false
         
-        Pig.zPosition = 2
-        self.addChild(Pig)
+
+     
+        Pig =  SKSpriteNode(imageNamed:"猪")
+
+        let Pigbody = SKPhysicsBody(circleOfRadius: 56/2)
+        Pigbody.configuration(categoryBitMask: PhysicsCategory.Pig, collisionBitMask: PhysicsCategory.Ground | PhysicsCategory.Wall, contactTestBitMask: PhysicsCategory.Ground | PhysicsCategory.Wall | PhysicsCategory.Score, isDynamic: true, affectedByGravity: false)
+        Pig.configuration(name: nil, size: CGSize(width: 60, height: 56), position: CGPoint(x: self.frame.width/2 - 60, y: self.frame.height/2), physicsBody: Pigbody, zPosition: 2)
+        self.addChilds(nodes: [ScoreLab,Ground,Pig])
         
     }
     func restoreScene() {
@@ -139,15 +115,15 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
                         self.addTwo = Int(node.text!.getDecimalByBinary())
                         let totaladd = self.addOne!+self.addTwo!
                         if fLevelType == LevelType.Decimal {
-                           self.totaladdStr = "\(totaladd)"
+                            self.totaladdStr = "\(totaladd)"
                             self.totaladdStrCopy = "\(totaladd)"
                         }else if fLevelType == LevelType.Binary {
                             var intStr = "\(totaladd)"
                             print("intStr====\(intStr)")
-                        self.totaladdStrCopy = intStr
-                        self.totaladdStr = intStr.getBinaryByDecimal()
+                            self.totaladdStrCopy = intStr
+                            self.totaladdStr = intStr.getBinaryByDecimal()
                         }
-                     
+                        
                     }
                 }
                 self.wallIndex += 1
@@ -202,10 +178,8 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     
     func  createRestoreBtn() {
         restoreBtn = SKSpriteNode(imageNamed: "重新开始")
-        restoreBtn.color = SKColor.red
-        restoreBtn.size = CGSize(width: AdaptationWidth(250/2), height: AdaptationHeight(90/2))
-        restoreBtn.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        restoreBtn.zPosition = 7
+        restoreBtn.configuration(name: nil, size: CGSize(width: AdaptationWidth(250/2), height: AdaptationHeight(90/2))
+            , position: CGPoint(x: self.frame.width/2, y: self.frame.height/2), physicsBody: nil, zPosition: 7)
         self.addChild(restoreBtn)
         //按钮出现时的动画
         restoreBtn.setScale(0)
@@ -215,11 +189,8 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
     
     func createMenuBtn()  {
         menuBtn = SKSpriteNode(imageNamed: "菜单")
-        //        menuBtn.size = CGSize(width: 90/2, height: 90/2)
-        menuBtn.position = CGPoint(x: 50, y: self.frame.height-50)
-        menuBtn.zPosition = 7
+        menuBtn.configuration(name: nil, size: nil, position: CGPoint(x: 50, y: self.frame.height-50), physicsBody: nil, zPosition: 7)
         self.addChild(menuBtn)
-        
         //按钮出现时的动画
         menuBtn.setScale(0)
         menuBtn.run(SKAction.scale(to: 1, duration: 0.3))
@@ -244,62 +215,36 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         //按钮出现时的动画
         sharedToPYQBtn.setScale(0)
         sharedToPYQBtn.run(SKAction.scale(to: 1.2, duration: 0.3))
-        
-        
         createMenuBtn()
     }
     func createWalls() {
         //为每个墙创建一条线，计数使用
         let ScroeNode = SKLabelNode()
-        ScroeNode.name = "ScroeNode"
-        ScroeNode.color = SKColor.blue
+        let Scroebody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59*2)))
+        Scroebody.configuration(categoryBitMask: PhysicsCategory.Score, collisionBitMask: 0, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        ScroeNode.configuration(name: "ScroeNode", position: CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 + AdaptationWidth(25) ), fontName: "04b19", fontSize: 60, physicsBody: Scroebody, zPosition: nil)
         if fLevelType == LevelType.Decimal {
             ScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
         }else if fLevelType == LevelType.Binary {
-            
             var intStr = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
-    
             ScroeNode.text = intStr.getBinaryByDecimal()
-        
         }
-        
-        ScroeNode.fontName = "04b19"
-        ScroeNode.fontSize = 60
-        //一定要实例化
-        ScroeNode.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 + AdaptationWidth(25) )
-        ScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59*2)))
-        ScroeNode.physicsBody?.categoryBitMask = PhysicsCategory.Score
-        ScroeNode.physicsBody?.collisionBitMask = 0
-        ScroeNode.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        ScroeNode.physicsBody?.isDynamic = false
-        ScroeNode.physicsBody?.affectedByGravity = false
-        
         //节点，方便管理多个精灵，并不是父控件，和位置没有关系
         wallPair = SKNode()
         wallPair.name = "wallPair"
         let topwall = SKSpriteNode(imageNamed: "tree")
         let botwall = SKSpriteNode(imageNamed: "tree")
-        topwall.size = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(300))
-        botwall.size = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(300))
-        topwall.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 + AdaptationWidth(300))
-        botwall.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 - AdaptationWidth(200))
-        
-        topwall.physicsBody = SKPhysicsBody(rectangleOf: topwall.size)
-        topwall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
-        topwall.physicsBody?.collisionBitMask = PhysicsCategory.Pig
-        topwall.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        topwall.physicsBody?.isDynamic = false
-        topwall.physicsBody?.affectedByGravity = false
-        
-        botwall.physicsBody = SKPhysicsBody(rectangleOf: topwall.size)
-        botwall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
-        botwall.physicsBody?.collisionBitMask = PhysicsCategory.Pig
-        botwall.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        botwall.physicsBody?.isDynamic = false
-        botwall.physicsBody?.affectedByGravity = false
+        let topwallsize = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(300))
+        let topwallposition = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 + AdaptationWidth(300))
+        let topwallbody = SKPhysicsBody(rectangleOf: topwallsize)
+        topwallbody.configuration(categoryBitMask: PhysicsCategory.Wall, collisionBitMask: PhysicsCategory.Pig, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        topwall.configuration(name: nil, size: topwallsize, position: topwallposition, physicsBody: topwallbody, zPosition: nil)
+        let botwallposition =  CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 - AdaptationWidth(200))
+        let botwallbody = SKPhysicsBody(rectangleOf: topwallsize)
+        botwallbody.configuration(categoryBitMask: PhysicsCategory.Wall, collisionBitMask: PhysicsCategory.Pig, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        botwall.configuration(name: nil, size: topwallsize, position: botwallposition, physicsBody: botwallbody, zPosition: nil)
         topwall.zRotation = CGFloat(Double.pi)
-        wallPair.addChild(topwall)
-        wallPair.addChild(botwall)
+        wallPair.addChilds(nodes: [topwall,botwall])
         //控件的添加顺序
         wallPair.zPosition = 1
         let randomPostion = CGFloat.random(min: -100, max: 100)
@@ -312,125 +257,66 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
         let randomBool = CGFloat.randomF(to: 2)
         //为每个墙创建一条线，计数使用
         let topScroeNode = SKLabelNode()
-        topScroeNode.name = "topScroeNode"
-        topScroeNode.color = SKColor.blue
-        topScroeNode.fontName = "04b19"
-        topScroeNode.fontSize = 60
-        //一定要实例化
-        topScroeNode.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 + AdaptationWidth(100) )
-        topScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59*2)))
-        topScroeNode.physicsBody?.categoryBitMask = PhysicsCategory.Score
-        topScroeNode.physicsBody?.collisionBitMask = 0
-        topScroeNode.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        topScroeNode.physicsBody?.isDynamic = false
-        topScroeNode.physicsBody?.affectedByGravity = false
+        let topScroebody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59*2)))
+        topScroebody.configuration(categoryBitMask: PhysicsCategory.Score, collisionBitMask: 0, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        topScroeNode.configuration(name: "topScroeNode", position: CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 + AdaptationWidth(100) ), fontName: "04b19", fontSize: 60, physicsBody: topScroebody, zPosition: nil)
+        
         
         let botScroeNode = SKLabelNode()
-        botScroeNode.name = "botScroeNode"
-        botScroeNode.color = SKColor.blue
-        botScroeNode.fontName = "04b19"
-        botScroeNode.fontSize = 60
-        //一定要实例化
-        botScroeNode.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 - AdaptationWidth(150) )
-        botScroeNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59)))
-        botScroeNode.physicsBody?.categoryBitMask = PhysicsCategory.Score
-        botScroeNode.physicsBody?.collisionBitMask = 0
-        botScroeNode.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        botScroeNode.physicsBody?.isDynamic = false
-        botScroeNode.physicsBody?.affectedByGravity = false
+        let botScroebody = SKPhysicsBody(rectangleOf: CGSize(width: AdaptationWidth(59), height: AdaptationWidth(59)))
+        botScroebody.configuration(categoryBitMask: PhysicsCategory.Score, collisionBitMask: 0, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        
+        botScroeNode.configuration(name: "botScroeNode", position: CGPoint(x: self.frame.width+AdaptationWidth(59), y:  self.frame.height/2 - AdaptationWidth(150) ), fontName: "04b19", fontSize: 60, physicsBody: botScroebody, zPosition: nil)
+        
         
         if randomBool == 0 {
-            
             if fLevelType == LevelType.Decimal {
-                
                 topScroeNode.text = self.totaladdStrCopy!
                 botScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
-                
             }else if fLevelType == LevelType.Binary {
-                
                 var intStr = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
                 var aintStr = self.totaladdStrCopy!
-                
-                  print("\(aintStr)")
                 topScroeNode.text = aintStr.getBinaryByDecimal()
                 botScroeNode.text = intStr.getBinaryByDecimal()
-                
-                
-                
             }
-            
-           
         }else{
-            
             if fLevelType == LevelType.Decimal {
-                
-                
                 topScroeNode.text = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
                 botScroeNode.text = self.totaladdStrCopy!
-                
             }else if fLevelType == LevelType.Binary {
-                
                 var intStr = "\(CGFloat.randomF(to: UInt32(LevelCount)))"
                 var aintStr = self.totaladdStrCopy!
-                
-                   print("\(aintStr)")
                 topScroeNode.text = intStr.getBinaryByDecimal()
                 botScroeNode.text = aintStr.getBinaryByDecimal()
-                
-             
-                
             }
-            
-            
         }
-        
         //节点，方便管理多个精灵，并不是父控件，和位置没有关系
         wallPair = SKNode()
         wallPair.name = "wallPair"
         let topwall = SKSpriteNode(imageNamed: "tree")
         let botwall = SKSpriteNode(imageNamed: "tree")
         let midwall = SKSpriteNode(imageNamed: "tree")
-        topwall.size = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(300))
-        botwall.size = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(300))
-        midwall.size = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(50))
-        topwall.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 + AdaptationWidth(400))
-        botwall.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 - AdaptationWidth(400))
-        midwall.position = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 + AdaptationWidth(0))
-        
-        topwall.physicsBody = SKPhysicsBody(rectangleOf: topwall.size)
-        topwall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
-        topwall.physicsBody?.collisionBitMask = PhysicsCategory.Pig
-        topwall.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        topwall.physicsBody?.isDynamic = false
-        topwall.physicsBody?.affectedByGravity = false
-        
-        botwall.physicsBody = SKPhysicsBody(rectangleOf: topwall.size)
-        botwall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
-        botwall.physicsBody?.collisionBitMask = PhysicsCategory.Pig
-        botwall.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        botwall.physicsBody?.isDynamic = false
-        botwall.physicsBody?.affectedByGravity = false
-        
-        midwall.physicsBody = SKPhysicsBody(rectangleOf: midwall.size)
-        midwall.physicsBody?.categoryBitMask = PhysicsCategory.Wall
-        midwall.physicsBody?.collisionBitMask = PhysicsCategory.Pig
-        midwall.physicsBody?.contactTestBitMask = PhysicsCategory.Pig
-        midwall.physicsBody?.isDynamic = false
-        midwall.physicsBody?.affectedByGravity = false
-        
+        let topwallsize = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(300))
+        let topwallposition = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 + AdaptationWidth(400))
+        let topwallbody = SKPhysicsBody(rectangleOf: topwallsize)
+        topwallbody.configuration(categoryBitMask: PhysicsCategory.Wall, collisionBitMask: PhysicsCategory.Pig, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        topwall.configuration(name: nil, size: topwallsize, position: topwallposition, physicsBody: topwallbody, zPosition: nil)
+        let botwallposition =  CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 - AdaptationWidth(400))
+        let botwallbody = SKPhysicsBody(rectangleOf: topwallsize)
+        botwallbody.configuration(categoryBitMask: PhysicsCategory.Wall, collisionBitMask: PhysicsCategory.Pig, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        botwall.configuration(name: nil, size: topwallsize, position: botwallposition, physicsBody: botwallbody, zPosition: nil)
+        let midwallsize = CGSize(width: AdaptationWidth(59), height: AdaptationHeight(50))
+        let midwallposition = CGPoint(x: self.frame.width+AdaptationWidth(59), y: self.frame.height/2 + AdaptationWidth(0))
+        let midwallbody = SKPhysicsBody(rectangleOf: midwallsize)
+        midwallbody.configuration(categoryBitMask: PhysicsCategory.Wall, collisionBitMask: PhysicsCategory.Pig, contactTestBitMask: PhysicsCategory.Pig, isDynamic: false, affectedByGravity: false)
+        midwall.configuration(name: nil, size: midwallsize, position: midwallposition, physicsBody: midwallbody, zPosition: nil)
         topwall.zRotation = CGFloat(Double.pi)
-        
-        wallPair.addChild(topwall)
-        wallPair.addChild(botwall)
-        wallPair.addChild(midwall)
+        wallPair.addChilds(nodes: [topwall,botwall,midwall])
         //控件的添加顺序
         wallPair.zPosition = 1
         wallPair.run(moveAndRemove)
-        
-        wallPair.addChild(topScroeNode)
-        wallPair.addChild(botScroeNode)
+        wallPair.addChilds(nodes: [topScroeNode,botScroeNode])
         self.addChild(wallPair)
-        
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -441,12 +327,8 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
             if bodya.categoryBitMask == PhysicsCategory.Pig && bodyb.categoryBitMask == PhysicsCategory.Score {
                 Score += 1
                 ScoreLab.text = "\(Score)"
-//                var strint = "\(Score)"
-//                
-//                ScoreLab.text = strint.getBinaryByDecimal()
                 let node = bodyb.node as! SKLabelNode
                 if node.name == "botScroeNode" || node.name == "topScroeNode"{
-//                    let scoreInt = Int(node.text!)
                     if node.text! != totaladdStr! {
                         isDied = true
                         //函数可以取得所有具有name的nodes，这里取得node，并停止。
@@ -462,12 +344,8 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
             } else if bodyb.categoryBitMask == PhysicsCategory.Pig && bodya.categoryBitMask == PhysicsCategory.Score {
                 Score += 1
                 ScoreLab.text = "\(Score)"
-//                var strint = "\(Score)"
-//                
-//                ScoreLab.text = strint.getBinaryByDecimal()
                 let node = bodya.node as! SKLabelNode
                 if node.name == "botScroeNode" || node.name == "topScroeNode"{
-//                    let scoreInt = Int(node.text!)
                     if node.text! != self.totaladdStr! {
                         isDied = true
                         //函数可以取得所有具有name的nodes，这里取得node，并停止。
@@ -492,7 +370,6 @@ class homeSKScene: SKScene ,SKPhysicsContactDelegate{
                 createRestoreBtn()
                 createSharedBtn()
             }
-            
             //猪与地面接触
             if bodya.categoryBitMask == PhysicsCategory.Pig && bodyb.categoryBitMask == PhysicsCategory.Ground || bodyb.categoryBitMask == PhysicsCategory.Pig && bodya.categoryBitMask == PhysicsCategory.Ground{
                 isDied = true
